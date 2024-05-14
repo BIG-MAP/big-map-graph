@@ -25,7 +25,7 @@ jobs:
         run: ssh -o StrictHostKeyChecking=no ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "echo SSH connection successful"
       - name: Pull Changes from Repository
         run: |
-          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /path/to/your/repository && git pull"
+          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/lhendrix/big-map-graph && git pull"
       - name: Restart Streamlit Server
         run: |
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "echo '${{ secrets.SUDO_PASSWORD }}' | sudo -S nohup /home/lhendrix/big-map-graph/venv/bin/streamlit run --server.port 443 /home/lhendrix/big-map-graph/app.py &"
