@@ -28,4 +28,4 @@ jobs:
           ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/lhendrix/big-map-graph && git pull"
       - name: Restart Streamlit Server
         run: |
-          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "echo '${{ secrets.SUDO_PASSWORD }}' | sudo -S nohup /home/lhendrix/big-map-graph/venv/bin/streamlit run --server.port 443 /home/lhendrix/big-map-graph/app.py &"
+          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "echo '${{ secrets.SUDO_PASSWORD }}' | sudo -S nohup /home/lhendrix/big-map-graph/venv/bin/streamlit run --server.port 443 /home/lhendrix/big-map-graph/app.py > /dev/null 2>&1 &"
