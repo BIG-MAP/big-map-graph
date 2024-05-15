@@ -49,7 +49,7 @@ def main():
     # Sidebar for predefined edge types
     with st.sidebar:
         st.header("Predefined Edge Options")
-        edge_selections = {label: st.checkbox(label, True) for label in edge_types.keys()}
+        edge_selections = {label: st.toggle(label, True) for label in edge_types.keys()}
 
     # Collect predicates for selected edges from sidebar
     selected_edges = [edge_types[label] for label, selected in edge_selections.items() if selected]
