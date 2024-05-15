@@ -42,7 +42,7 @@ def get_unique_predicates(graph):
     return predicates
 
 def main():
-    st.title("BIG-MAP Key Demonstrator Explorer - test")
+    st.title("BIG-MAP Key Demonstrator Explorer")
     kd_options = [f"KD{i}" for i in range(1, 12)]
     selected_kds = st.multiselect("Select KD Numbers", options=kd_options, default=kd_options)
 
