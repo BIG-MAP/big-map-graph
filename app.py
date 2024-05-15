@@ -131,19 +131,31 @@ def create_node(subject):
     label = str(g.value(subject, SKOS.prefLabel) or g.value(subject, RDFS.label) or "")
     url = str(g.value(subject, SCHEMA.url) or "#")
     presentation_icon = "https://raw.githubusercontent.com/BIG-MAP/ProjectKnowledgeGraph/main/assets/img/icon/presentation_icon.png"
+    publication_icon = "https://raw.githubusercontent.com/BIG-MAP/ProjectKnowledgeGraph/main/assets/img/icon/publication_icon.png"
 
-    # Check if this node is an object of the relation bigmap:hasPresentation
+    # Check if this node is an object of the relations bigmap:hasPresentation or schema:citation
     is_presentation_node = any(
         True for _, p in g.subject_predicates(object=subject)
         if p == BIGMAP.hasPresentation
     )
+    is_publication_node = any(
+        True for _, p in g.subject_predicates(object=subject)
+        if p == SCHEMA.citation
+    )
 
-    # Decide on image URL based on whether it's a presentation node
-    image_url = presentation_icon if is_presentation_node else str(g.value(subject, SCHEMA.logo) or None)
+    # Decide on image URL based on node's relationship
+    if is_presentation_node:
+        image_url = presentation_icon
+    elif is_publication_node:
+        image_url = publication_icon
+    else:
+        image_url = str(g.value(subject, SCHEMA.logo) or None)
+
     shape = "circularImage" if image_url else "dot"
     color = None if image_url else "blue"
 
     return Node(id=str(subject), label=label, url=url, color=color, image=image_url, shape=shape, font_color="#FAFAFA")
+
 
 
 if __name__ == "__main__":
